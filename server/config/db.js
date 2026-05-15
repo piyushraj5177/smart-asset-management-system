@@ -1,3 +1,7 @@
+const mysql = require("mysql2/promise");
+
+require("dotenv").config();
+
 const db = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -6,24 +10,12 @@ const db = mysql.createPool({
   port: process.env.DB_PORT,
 });
 
-
-
 db.getConnection()
-
   .then(() => {
-
-    console.log(
-      "Database Connected Successfully"
-    );
+    console.log("Database Connected Successfully");
   })
-
   .catch((error) => {
-
     console.log(error);
   });
-
-
-
-
 
 module.exports = db;
