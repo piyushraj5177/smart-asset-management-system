@@ -1,12 +1,10 @@
 const db = require("../config/db");
 
 
-
-
-
-
-
+// =========================
 // CREATE LAB
+// =========================
+
 exports.createLab = async (req, res) => {
 
   try {
@@ -18,11 +16,8 @@ exports.createLab = async (req, res) => {
       department,
       description,
       extra_details,
+      created_by
     } = req.body;
-
-
-
-
 
     const query = `
 
@@ -33,21 +28,16 @@ exports.createLab = async (req, res) => {
         room_number,
         department,
         description,
-        extra_details
+        extra_details,
+        created_by
       )
 
-      VALUES (?, ?, ?, ?, ?, ?)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
 
     `;
 
-
-
-
-
     await db.query(
-
       query,
-
       [
         lab_name,
         lab_code,
@@ -55,12 +45,9 @@ exports.createLab = async (req, res) => {
         department,
         description,
         JSON.stringify(extra_details),
+        created_by
       ]
     );
-
-
-
-
 
     return res.status(201).json({
       message: "Lab Created Successfully",
@@ -77,17 +64,15 @@ exports.createLab = async (req, res) => {
 };
 
 
-
-
-
-
-
-
-
+// =========================
 // GET ALL LABS
+// =========================
+
 exports.getAllLabs = async (req, res) => {
 
   try {
+
+    const { created_by } = req.query;
 
     const query = `
 
@@ -100,21 +85,18 @@ exports.getAllLabs = async (req, res) => {
       LEFT JOIN assets
       ON labs.id = assets.lab_id
 
+      WHERE labs.created_by = ?
+
       GROUP BY labs.id
 
       ORDER BY labs.id DESC
 
     `;
 
-
-
-
-
-    const [result] = await db.query(query);
-
-
-
-
+    const [result] = await db.query(
+      query,
+      [created_by]
+    );
 
     return res.status(200).json(result);
 
@@ -129,23 +111,15 @@ exports.getAllLabs = async (req, res) => {
 };
 
 
-
-
-
-
-
-
-
+// =========================
 // GET SINGLE LAB
+// =========================
+
 exports.getLabById = async (req, res) => {
 
   try {
 
     const { id } = req.params;
-
-
-
-
 
     const [result] = await db.query(
 
@@ -154,20 +128,12 @@ exports.getLabById = async (req, res) => {
       [id]
     );
 
-
-
-
-
     if (result.length === 0) {
 
       return res.status(404).json({
         message: "Lab Not Found",
       });
     }
-
-
-
-
 
     return res.status(200).json(result[0]);
 
@@ -182,23 +148,15 @@ exports.getLabById = async (req, res) => {
 };
 
 
-
-
-
-
-
-
-
+// =========================
 // DELETE LAB
+// =========================
+
 exports.deleteLab = async (req, res) => {
 
   try {
 
     const { id } = req.params;
-
-
-
-
 
     await db.query(
 
@@ -206,10 +164,6 @@ exports.deleteLab = async (req, res) => {
 
       [id]
     );
-
-
-
-
 
     return res.status(200).json({
       message: "Lab Deleted Successfully",
@@ -225,7 +179,11 @@ exports.deleteLab = async (req, res) => {
   }
 };
 
+
+// =========================
 // UPDATE LAB
+// =========================
+
 exports.updateLab = async (req, res) => {
 
   try {
@@ -240,10 +198,6 @@ exports.updateLab = async (req, res) => {
       description,
       extra_details,
     } = req.body;
-
-
-
-
 
     const query = `
 
@@ -261,10 +215,6 @@ exports.updateLab = async (req, res) => {
 
     `;
 
-
-
-
-
     await db.query(
       query,
       [
@@ -277,10 +227,6 @@ exports.updateLab = async (req, res) => {
         id,
       ]
     );
-
-
-
-
 
     return res.status(200).json({
       message: "Lab Updated Successfully",
