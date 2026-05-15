@@ -30,7 +30,7 @@ function Login() {
     try {
 
       const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        "https://smart-asset-backend-1629.onrender.com/api/auth/login",
         formData
       );
 

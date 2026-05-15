@@ -30,7 +30,7 @@ function Labs() {
     try {
 
       const response = await axios.get(
-        "http://localhost:5000/api/labs"
+        "https://smart-asset-backend-1629.onrender.com/api/labs"
       );
 
       setLabs(response.data);
@@ -111,7 +111,7 @@ function Labs() {
       if (editingLabId) {
 
         await axios.put(
-          `http://localhost:5000/api/labs/${editingLabId}`,
+          `https://smart-asset-backend-1629.onrender.com/api/labs/${editingLabId}`,
           {
             ...formData,
             extra_details:
@@ -127,7 +127,7 @@ function Labs() {
       else {
 
         await axios.post(
-          "http://localhost:5000/api/labs",
+          "https://smart-asset-backend-1629.onrender.com/api/labs",
           {
             ...formData,
             extra_details:
@@ -176,7 +176,7 @@ function Labs() {
     try {
 
       await axios.delete(
-        `http://localhost:5000/api/labs/${labId}`
+        `https://smart-asset-backend-1629.onrender.com/api/labs/${labId}`
       );
 
       alert("Lab Deleted Successfully");

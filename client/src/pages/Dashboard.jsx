@@ -18,7 +18,7 @@ function Dashboard() {
 
       // FETCH LABS
       const labsResponse = await axios.get(
-        "http://localhost:5000/api/labs"
+        "https://smart-asset-backend-1629.onrender.com/api/labs"
       );
 
       setLabsCount(labsResponse.data.length);
@@ -44,7 +44,7 @@ function Dashboard() {
       try {
 
         const maintenanceResponse = await axios.get(
-          "http://localhost:5000/api/maintenance"
+          "https://smart-asset-backend-1629.onrender.com/api/maintenance"
         );
 
         setMaintenanceCount(

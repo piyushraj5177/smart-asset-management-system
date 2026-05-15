@@ -41,7 +41,7 @@ function Register() {
     try {
 
       const response = await axios.post(
-        "http://localhost:5000/api/auth/register",
+        "https://smart-asset-backend-1629.onrender.com/api/auth/register",
         formData
       );
 

@@ -79,7 +79,7 @@ const [visibleFields, setVisibleFields] = useState({});
 
       // FETCH ASSETS
       const assetResponse = await axios.get(
-        `http://localhost:5000/api/assets/${id}`
+        `https://smart-asset-backend-1629.onrender.com/api/assets/${id}`
       );
 
       setAssets(
@@ -94,7 +94,7 @@ const [visibleFields, setVisibleFields] = useState({});
 
       // FETCH LAB DETAILS
       const labResponse = await axios.get(
-        "http://localhost:5000/api/labs"
+        "https://smart-asset-backend-1629.onrender.com/api/labs"
       );
 
 
@@ -228,7 +228,7 @@ const handleExtraChange = (
 
     await axios.post(
 
-  "http://localhost:5000/api/assets",
+  "https://smart-asset-backend-1629.onrender.com/api/assets",
 
   {
     ...formData,
@@ -283,7 +283,7 @@ const handleExtraChange = (
     try {
 
       await axios.delete(
-        `http://localhost:5000/api/assets/${assetId}`
+        `https://smart-asset-backend-1629.onrender.com/api/assets/${assetId}`
       );
 
       alert("Asset Deleted Successfully");
@@ -372,7 +372,7 @@ const handleEditClick = (asset) => {
 
       await axios.put(
 
-  `http://localhost:5000/api/assets/${editingAsset.id}`,
+  `https://smart-asset-backend-1629.onrender.com/api/assets/${editingAsset.id}`,
 
   {
     ...editData,

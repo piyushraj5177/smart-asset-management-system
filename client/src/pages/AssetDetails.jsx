@@ -35,7 +35,7 @@ function AssetDetails() {
     try {
 
       const response = await axios.get(
-        `http://localhost:5000/api/assets/details/${id}`
+        `https://smart-asset-backend-1629.onrender.com/api/assets/details/${id}`
       );
 
       setAsset(response.data);
@@ -56,7 +56,7 @@ function AssetDetails() {
     try {
 
       const response = await axios.get(
-        `http://localhost:5000/api/maintenance/${id}`
+        `https://smart-asset-backend-1629.onrender.com/api/maintenance/${id}`
       );
 
       setMaintenance(response.data);
@@ -102,7 +102,7 @@ function AssetDetails() {
     try {
 
       await axios.post(
-        "http://localhost:5000/api/maintenance/add",
+        "https://smart-asset-backend-1629.onrender.com/api/maintenance/add",
         {
           asset_id: asset.id,
           ...maintenanceData,
@@ -146,7 +146,7 @@ const deleteMaintenanceRecord = async (maintenanceId) => {
   try {
 
     await axios.delete(
-      `http://localhost:5000/api/maintenance/delete/${maintenanceId}`
+      `https://smart-asset-backend-1629.onrender.com/api/maintenance/delete/${maintenanceId}`
     );
 
 

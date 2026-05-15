@@ -40,7 +40,7 @@ function ForgotPassword() {
 
       const response = await axios.post(
 
-        "http://localhost:5000/api/auth/forgot-password",
+        "https://smart-asset-backend-1629.onrender.com/api/auth/forgot-password",
 
         formData
       );
