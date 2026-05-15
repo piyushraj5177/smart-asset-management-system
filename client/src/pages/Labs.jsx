@@ -8,6 +8,11 @@ function Labs() {
 
   const navigate = useNavigate();
 
+  // LOGGED IN USER
+  const user = JSON.parse(
+    localStorage.getItem("user")
+  );
+
   const [labs, setLabs] = useState([]);
 
   const [editingLabId, setEditingLabId] =
@@ -30,7 +35,7 @@ function Labs() {
     try {
 
       const response = await axios.get(
-        "https://smart-asset-backend-1629.onrender.com/api/labs"
+        `https://smart-asset-backend-1629.onrender.com/api/labs?created_by=${user.id}`
       );
 
       setLabs(response.data);
@@ -120,7 +125,6 @@ function Labs() {
         );
 
         alert("Lab Updated Successfully");
-
       }
 
       // CREATE LAB
@@ -130,8 +134,11 @@ function Labs() {
           "https://smart-asset-backend-1629.onrender.com/api/labs",
           {
             ...formData,
+
             extra_details:
               filteredExtraFields,
+
+            created_by: user.id,
           }
         );
 
@@ -481,7 +488,7 @@ function Labs() {
             <div className="mt-6 flex justify-center">
 
               <QRCodeCanvas
-                value={`http://localhost:5173/labs/${lab.id}`}
+                value={`https://smart-asset-management-system.vercel.app/labs/${lab.id}`}
                 size={140}
               />
 
