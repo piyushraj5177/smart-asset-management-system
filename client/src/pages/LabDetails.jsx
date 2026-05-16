@@ -1248,18 +1248,33 @@ const handleEditClick = (asset) => {
             </p>
 
             
-  {
-  (
-    typeof asset.extra_details === "string"
-      ? JSON.parse(asset.extra_details)
-      : asset.extra_details || []
-  ).map((item, index) => (
+ {
+(() => {
 
-    <p key={index}>
-      <strong>{item.label || item.key}:</strong> {item.value}
-    </p>
+  try {
 
-  ))
+    const parsedDetails =
+      typeof asset.extra_details === "string"
+        ? JSON.parse(asset.extra_details)
+        : asset.extra_details || [];
+
+    return parsedDetails.map((item, index) => (
+
+      <p key={index}>
+        <strong>{item.label || item.key}:</strong> {item.value}
+      </p>
+
+    ));
+
+  } catch (error) {
+
+    console.log("Extra details parse error");
+
+    return null;
+
+  }
+
+})()
 }
 
 
