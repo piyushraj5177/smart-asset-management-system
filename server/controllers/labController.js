@@ -44,7 +44,7 @@ exports.createLab = async (req, res) => {
         room_number,
         department,
         description,
-        JSON.stringify(extra_details),
+        JSON.stringify(extra_details || []),
         created_by
       ]
     );
@@ -77,8 +77,17 @@ exports.getAllLabs = async (req, res) => {
     const query = `
 
       SELECT
-        labs.*,
-        COUNT(assets.id) AS asset_count
+          labs.id,
+          labs.lab_name,
+          labs.lab_code,
+          labs.room_number,
+          labs.department,
+          labs.description,
+          labs.extra_details,
+          labs.created_by,
+          labs.created_at,
+
+          COUNT(assets.id) AS asset_count
 
       FROM labs
 
@@ -87,7 +96,16 @@ exports.getAllLabs = async (req, res) => {
 
       WHERE labs.created_by = ?
 
-      GROUP BY labs.id
+      GROUP BY
+          labs.id,
+          labs.lab_name,
+          labs.lab_code,
+          labs.room_number,
+          labs.department,
+          labs.description,
+          labs.extra_details,
+          labs.created_by,
+          labs.created_at
 
       ORDER BY labs.id DESC
 
@@ -121,10 +139,27 @@ exports.getLabById = async (req, res) => {
 
     const { id } = req.params;
 
+    const query = `
+
+      SELECT
+          id,
+          lab_name,
+          lab_code,
+          room_number,
+          department,
+          description,
+          extra_details,
+          created_by,
+          created_at
+
+      FROM labs
+
+      WHERE id = ?
+
+    `;
+
     const [result] = await db.query(
-
-      "SELECT * FROM labs WHERE id = ?",
-
+      query,
       [id]
     );
 
@@ -159,9 +194,7 @@ exports.deleteLab = async (req, res) => {
     const { id } = req.params;
 
     await db.query(
-
       "DELETE FROM labs WHERE id = ?",
-
       [id]
     );
 
@@ -223,7 +256,7 @@ exports.updateLab = async (req, res) => {
         room_number,
         department,
         description,
-        JSON.stringify(extra_details),
+        JSON.stringify(extra_details || []),
         id,
       ]
     );
