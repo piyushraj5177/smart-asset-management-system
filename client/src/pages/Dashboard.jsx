@@ -10,20 +10,21 @@ function Dashboard() {
 
   const [maintenanceCount, setMaintenanceCount] = useState(0);
 
-
+  // LOGGED IN USER
+  const user = JSON.parse(
+    localStorage.getItem("user")
+  );
 
   const fetchDashboardData = async () => {
 
     try {
 
-      // FETCH LABS
+      // FETCH USER-WISE LABS
       const labsResponse = await axios.get(
-        "https://smart-asset-backend-1629.onrender.com/api/labs"
+        `https://smart-asset-backend-1629.onrender.com/api/labs?created_by=${user.id}`
       );
 
       setLabsCount(labsResponse.data.length);
-
-
 
       // CALCULATE TOTAL ASSETS
       let totalAssets = 0;
@@ -37,8 +38,6 @@ function Dashboard() {
       });
 
       setAssetsCount(totalAssets);
-
-
 
       // FETCH MAINTENANCE
       try {
@@ -62,15 +61,11 @@ function Dashboard() {
     }
   };
 
-
-
   useEffect(() => {
 
     fetchDashboardData();
 
   }, []);
-
-
 
   return (
 
@@ -90,8 +85,6 @@ function Dashboard() {
               className="w-24 h-24 object-contain"
             />
 
-
-
             <div>
 
               <h1 className="text-5xl font-extrabold text-blue-900">
@@ -103,7 +96,7 @@ function Dashboard() {
               </p>
 
               <p className="text-lg text-gray-500 mt-1">
-                Welcome Admin
+                Welcome {user?.full_name || "Admin"}
               </p>
 
             </div>
@@ -112,8 +105,6 @@ function Dashboard() {
 
         </div>
 
-
-
         {/* DASHBOARD */}
 
         <div className="bg-white p-10 rounded-3xl shadow-md">
@@ -121,8 +112,6 @@ function Dashboard() {
           <h1 className="text-4xl font-bold text-blue-800 mb-10">
             Dashboard Overview
           </h1>
-
-
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
@@ -140,8 +129,6 @@ function Dashboard() {
 
             </div>
 
-
-
             {/* TOTAL ASSETS */}
 
             <div className="bg-gradient-to-r from-green-100 to-green-200 p-8 rounded-3xl shadow-lg hover:scale-105 transition duration-300">
@@ -155,8 +142,6 @@ function Dashboard() {
               </p>
 
             </div>
-
-
 
             {/* MAINTENANCE */}
 
@@ -174,8 +159,6 @@ function Dashboard() {
 
           </div>
 
-
-
           {/* FOOTER */}
 
           <div className="mt-16 border-t pt-6 text-center">
@@ -183,8 +166,6 @@ function Dashboard() {
             <p className="text-gray-700 font-semibold text-lg">
               © 2026 TATA STEEL LIMITED | Smart Asset Management System
             </p>
-
-
 
             <p className="text-blue-800 font-bold mt-2">
               Developed By Piyush (VT0526850162)
