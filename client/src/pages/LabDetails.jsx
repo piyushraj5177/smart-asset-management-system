@@ -721,29 +721,25 @@ const handleEditClick = (asset) => {
 
 
 
-      {/* LAB INFO */}
-       
-       <div className="flex justify-end mb-4">
+     {/* LAB INFO */}
+
+<div className="flex justify-end mb-4">
 
   <button
     onClick={() => setShowSettings(!showSettings)}
-    className="bg-gray-800 text-white px-5 py-3 rounded-lg"
+    className="bg-gray-800 text-white px-4 md:px-5 py-2 md:py-3 rounded-lg text-sm md:text-base"
   >
     Open Lab Settings
   </button>
 
 </div>
 
-
-
-
-
 {
   showSettings && (
 
-    <div className="bg-white p-5 rounded-xl shadow mb-5">
+    <div className="bg-white p-4 md:p-5 rounded-xl shadow mb-5">
 
-      <h2 className="text-2xl font-bold mb-5">
+      <h2 className="text-xl md:text-2xl font-bold mb-5">
         Lab Visibility Settings
       </h2>
 
@@ -755,16 +751,16 @@ const handleEditClick = (asset) => {
 
             <div
               key={field}
-              className="flex justify-between items-center border-b pb-3"
+              className="flex justify-between items-center border-b pb-3 gap-4"
             >
 
-              <span className="capitalize font-medium">
+              <span className="capitalize font-medium text-sm md:text-base">
                 Show {field}
               </span>
 
               <button
                 onClick={() => toggleField(field)}
-                className={`px-4 py-2 rounded-lg text-white ${
+                className={`px-3 md:px-4 py-2 rounded-lg text-white text-sm ${
                   visibleFields[field]
                     ? "bg-green-600"
                     : "bg-red-600"
@@ -788,82 +784,73 @@ const handleEditClick = (asset) => {
   )
 }
 
-      <div className="bg-white p-6 rounded-xl shadow-md mb-6">
+<div className="bg-white p-4 md:p-6 rounded-xl shadow-md mb-6">
 
-  <h2 className="text-2xl font-bold text-blue-700">
-    {labInfo?.lab_name}
+  <h2 className="text-2xl md:text-3xl font-bold text-blue-700 break-words">
+    {labInfo?.lab_name || "Lab"}
   </h2>
 
+  {
 
+    visibleFields.code && (
 
+      <p className="mt-3 text-sm md:text-lg break-words">
 
+        <strong>Lab Code:</strong>{" "}
 
-  {visibleFields.code && (
+        {labInfo?.lab_code || "N/A"}
 
-    <p className="mt-2">
+      </p>
 
-      <strong>Lab Code:</strong>
-      {" "}
+    )
 
-      {labInfo?.lab_code}
+  }
 
-    </p>
+  {
 
-  )}
+    visibleFields.department && (
 
+      <p className="text-sm md:text-lg break-words">
 
+        <strong>Department:</strong>{" "}
 
+        {labInfo?.department || "N/A"}
 
+      </p>
 
+    )
 
-  {visibleFields.department && (
+  }
 
-    <p>
+  {
 
-      <strong>Department:</strong>
-      {" "}
+    visibleFields.room && (
 
-      {labInfo?.department}
+      <p className="text-sm md:text-lg break-words">
 
-    </p>
+        <strong>Room:</strong>{" "}
 
-  )}
+        {labInfo?.room_number || "N/A"}
 
+      </p>
 
+    )
 
+  }
 
+  {
 
+    visibleFields.description && (
 
-  {visibleFields.room && (
+      <p className="mt-2 text-gray-600 text-sm md:text-base break-words">
 
-    <p>
+        {labInfo?.description || "N/A"}
 
-      <strong>Room:</strong>
-      {" "}
+      </p>
 
-      {labInfo?.room_number}
+    )
 
-    </p>
-
-  )}
-
-
-
-
-
-
-  {visibleFields.description && (
-
-    <p className="mt-2 text-gray-600">
-
-      {labInfo?.description}
-
-    </p>
-
-  )}
-
-
-
+  }
 
   {
 
@@ -874,11 +861,9 @@ const handleEditClick = (asset) => {
       try {
 
         const parsedDetails =
-          JSON.parse(labInfo?.extra_details);
-
-
-
-
+          typeof labInfo.extra_details === "string"
+            ? JSON.parse(labInfo.extra_details)
+            : labInfo.extra_details;
 
         return parsedDetails.map(
           (item, index) => {
@@ -887,7 +872,10 @@ const handleEditClick = (asset) => {
 
               visibleFields[item.label] && (
 
-                <p key={index}>
+                <div
+                  key={index}
+                  className="mt-2 text-sm md:text-base break-words"
+                >
 
                   <strong>
                     {item.label}:
@@ -897,7 +885,7 @@ const handleEditClick = (asset) => {
 
                   {item.value}
 
-                </p>
+                </div>
 
               )
 
@@ -919,11 +907,8 @@ const handleEditClick = (asset) => {
     })()
 
   }
-  
-   </div>
 
-
-
+</div>
       {/* EXPORT BUTTONS */}
 
       <div className="flex justify-end gap-4 mb-6">
