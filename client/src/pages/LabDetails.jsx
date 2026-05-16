@@ -100,13 +100,15 @@ const [visibleFields, setVisibleFields] = useState({});
 
 
 
-      const selectedLab = labResponse.data.find(
-  (lab) => String(lab.id) === String(id)
-);
+      const selectedLab = Array.isArray(labResponse.data)
+  ? labResponse.data.find(
+      (lab) => String(lab.id) === String(id)
+    )
+  : labResponse.data;
 
 if (selectedLab) {
 
-  setLabInfo(selectedLab);
+  setLabInfo(selectedLab || {});
 
 } else {
 
