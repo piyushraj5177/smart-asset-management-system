@@ -724,7 +724,7 @@ const handleEditClick = (asset) => {
     <MainLayout>
 
       <h1 className="text-3xl font-bold mb-8">
-        {labInfo?.lab_name || "Lab"} Assets Management
+        Smart Asset Management System
       </h1>
 
 
