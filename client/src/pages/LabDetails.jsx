@@ -457,13 +457,13 @@ const handleEditClick = (asset) => {
 
     const exportData = filteredAssets.map((asset) => ({
 
-      Lab_Name: labInfo.lab_name,
+      Lab_Name: labInfo?.lab_name,
 
-      Lab_Code: labInfo.lab_code,
+      Lab_Code: labInfo?.lab_code,
 
-      Department: labInfo.department,
+      Department: labInfo?.department,
 
-      Room_Number: labInfo.room_number,
+      Room_Number: labInfo?.room_number,
 
       Asset_Name: asset.asset_name,
 
@@ -525,7 +525,7 @@ const handleEditClick = (asset) => {
 
     saveAs(
       data,
-      `${labInfo.lab_name || "Lab"}_Assets_Report.xlsx`
+      `${labInfo?.lab_name || "Lab"}_Assets_Report.xlsx`
     );
   };
 
@@ -556,25 +556,25 @@ const handleEditClick = (asset) => {
     doc.setFontSize(12);
 
     doc.text(
-      `Lab Name: ${labInfo.lab_name || ""}`,
+      `Lab Name: ${labInfo?.lab_name || ""}`,
       14,
       30
     );
 
     doc.text(
-      `Lab Code: ${labInfo.lab_code || ""}`,
+      `Lab Code: ${labInfo?.lab_code || ""}`,
       14,
       38
     );
 
     doc.text(
-      `Department: ${labInfo.department || ""}`,
+      `Department: ${labInfo?.department || ""}`,
       14,
       46
     );
 
     doc.text(
-      `Room Number: ${labInfo.room_number || ""}`,
+      `Room Number: ${labInfo?.room_number || ""}`,
       14,
       54
     );
@@ -702,7 +702,7 @@ const handleEditClick = (asset) => {
 
 
     doc.save(
-      `${labInfo.lab_name || "Lab"}_Asset_QR_Report.pdf`
+      `${labInfo?.lab_name || "Lab"}_Asset_QR_Report.pdf`
     );
   };
 
@@ -714,7 +714,7 @@ const handleEditClick = (asset) => {
     <MainLayout>
 
       <h1 className="text-3xl font-bold mb-8">
-        {labInfo.lab_name} Assets Management
+        {labInfo?.lab_name || "Lab"} Assets Management
       </h1>
 
 
@@ -791,7 +791,7 @@ const handleEditClick = (asset) => {
       <div className="bg-white p-6 rounded-xl shadow-md mb-6">
 
   <h2 className="text-2xl font-bold text-blue-700">
-    {labInfo.lab_name}
+    {labInfo?.lab_name}
   </h2>
 
 
@@ -805,7 +805,7 @@ const handleEditClick = (asset) => {
       <strong>Lab Code:</strong>
       {" "}
 
-      {labInfo.lab_code}
+      {labInfo?.lab_code}
 
     </p>
 
@@ -823,7 +823,7 @@ const handleEditClick = (asset) => {
       <strong>Department:</strong>
       {" "}
 
-      {labInfo.department}
+      {labInfo?.department}
 
     </p>
 
@@ -841,7 +841,7 @@ const handleEditClick = (asset) => {
       <strong>Room:</strong>
       {" "}
 
-      {labInfo.room_number}
+      {labInfo?.room_number}
 
     </p>
 
@@ -856,7 +856,7 @@ const handleEditClick = (asset) => {
 
     <p className="mt-2 text-gray-600">
 
-      {labInfo.description}
+      {labInfo?.description}
 
     </p>
 
@@ -867,14 +867,14 @@ const handleEditClick = (asset) => {
 
   {
 
-    labInfo.extra_details &&
+    labInfo?.extra_details &&
 
     (() => {
 
       try {
 
         const parsedDetails =
-          JSON.parse(labInfo.extra_details);
+          JSON.parse(labInfo?.extra_details);
 
 
 
