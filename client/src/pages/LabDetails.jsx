@@ -101,14 +101,24 @@ const [visibleFields, setVisibleFields] = useState({});
 
 
       const selectedLab = labResponse.data.find(
-        (lab) => lab.id == id
-      );
+  (lab) => String(lab.id) === String(id)
+);
 
+if (selectedLab) {
 
+  setLabInfo(selectedLab);
 
+} else {
 
-      setLabInfo(selectedLab);
-      
+  setLabInfo({
+    lab_name: "N/A",
+    lab_code: "N/A",
+    department: "N/A",
+    room_number: "N/A",
+    description: "N/A",
+  });
+
+}
 
     const dynamicFields = {
 
