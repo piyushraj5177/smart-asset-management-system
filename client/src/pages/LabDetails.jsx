@@ -109,6 +109,7 @@ const [visibleFields, setVisibleFields] = useState({});
 if (selectedLab) {
 
   setLabInfo(selectedLab || {});
+  console.log("LAB DATA:", selectedLab);
 
 } else {
 
